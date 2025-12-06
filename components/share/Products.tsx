@@ -4,7 +4,6 @@ import earphone from "@/public/assets/earphones-no-bg.png";
 import speaker from "@/public/assets/speaker-no-bg.png";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import ProductLink from "./ProductLink";
 
 const products = [
   { image: headphone, title: "headphones" },
@@ -41,7 +40,7 @@ function Products({
               <p className="mt-22 text-center text-[15px] font-bold tracking-[1.07px] uppercase">
                 {product.title}
               </p>
-              {/* <Link
+              <Link
                 onClick={closeMenu}
                 href={`/category?type=${product.title}`}
                 className="mx-auto flex items-center gap-1 text-center"
@@ -50,8 +49,7 @@ function Products({
                   SHOP
                 </span>
                 <ChevronRight color="#d87d4a" size={20} />
-              </Link> */}
-              <ProductLink title={product.title} closeMenu={closeMenu} />
+              </Link>
             </div>
           </div>
         ))}
