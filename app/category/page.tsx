@@ -7,21 +7,20 @@ export const metadata = {
   title: "Category",
 };
 
-// type SearchParams = {
-//   type: string;
-// };
+type SearchParams = {
+  type: string;
+};
 
-async function Page() {
-  // const params = await searchParams;
-  // const category = params.type;
+async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const params = await searchParams;
+  const category = params.type;
   // const products = await getProductByCategory(category);
   const test = await getTest("maz");
 
   return (
     <section>
       <div className="bg-[#191919] py-8 text-center text-[28px] font-bold tracking-[2px] text-white uppercase">
-        {/* {category} */}
-        hi
+        {category}
       </div>
       <div className="mt-16 mb-30 flex flex-col items-center justify-center gap-30 px-6 md:mt-30 md:px-10 xl:mt-40 xl:mb-40 xl:gap-40 xl:px-41.25">
         {/* {products?.map((product, i) => (
