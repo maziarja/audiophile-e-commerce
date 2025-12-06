@@ -14,6 +14,7 @@ async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams;
   const category = params.type;
   const products = await getProductByCategory(category);
+
   return (
     <section>
       <div className="bg-[#191919] py-8 text-center text-[28px] font-bold tracking-[2px] text-white uppercase">
@@ -23,6 +24,9 @@ async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
         {/* {products?.map((product, i) => (
           <Category key={i} product={product} index={i} />
         ))} */}
+        {products?.map((p) => {
+          return p.name;
+        })}
       </div>
       <Products className="mb-30 lg:mb-40" />
     </section>
