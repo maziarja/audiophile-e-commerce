@@ -16,11 +16,10 @@ export async function getProductByCategory(category: string) {
 
     const result = ProductsByCategorySchema.safeParse(products);
     if (!result.success) {
-      // throw new Error("Error: " + result.error.issues[0].message);
-      console.log(result.error.issues[0].message);
+      throw new Error("Error: " + result.error.issues[0].message);
     }
 
-    return result.data;
+    if (result.success) return result.data;
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch products");
