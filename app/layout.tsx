@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={`antialiased ${manrope.className}`}>
         {
           <>
-            {/* <Navbar /> */}
+            <Navbar />
             {children}
             <BrandStory className="mb-30 md:mb-24 lg:mb-59.25" />
             <Footer />
