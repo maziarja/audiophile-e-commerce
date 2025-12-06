@@ -12,8 +12,8 @@ export async function getProductByCategory(category: string) {
   try {
     await connectDB();
     const productsDoc = await Product.find({ category })
-      // .sort({ _id: -1 })
-      // .select(["categoryImage", "description", "new", "name", "category"])
+      .sort({ _id: -1 })
+      .select(["categoryImage", "description", "new", "name", "category"])
       .lean();
     // const products = convertToObject(productsDoc);
 
