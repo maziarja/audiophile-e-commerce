@@ -30,9 +30,7 @@ export default function RootLayout({
       <body className={`antialiased ${manrope.className}`}>
         {
           <>
-            <Suspense fallback={<Spinner />}>
-              <Navbar />
-            </Suspense>
+            <Navbar />
             {children}
             <BrandStory className="mb-30 md:mb-24 lg:mb-59.25" />
             <Footer />
