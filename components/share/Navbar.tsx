@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "../home/MobileMenu";
 import Products from "./Products";
-import { useSearchParams } from "next/navigation";
 
 function Navbar() {
   const nav = [
@@ -15,9 +14,6 @@ function Navbar() {
     { title: "speakers", href: "/category?type=speakers" },
     { title: "earphones", href: "/category?type=earphones" },
   ];
-
-  const searchParams = useSearchParams();
-  const category = searchParams.get("type");
 
   return (
     <MobileMenu>
@@ -41,7 +37,7 @@ function Navbar() {
               <Link
                 href={n.href}
                 key={n.title}
-                className={`font hover:text-primary active:text-primary cursor-pointer text-[13px] leading-[25px] font-bold tracking-[2px] uppercase ${n.title === category ? "text-[#d87d4a]" : "text-white"}`}
+                className={`font hover:text-primary active:text-primary cursor-pointer text-[13px] leading-[25px] font-bold tracking-[2px] text-white uppercase`}
               >
                 {n.title}
               </Link>
