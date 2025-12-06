@@ -8,7 +8,7 @@ import Product from "@/models/Products";
 export async function getProductByCategory(category: string) {
   try {
     await connectDB();
-    const productsDoc = await Product.find({ category })
+    const productsDoc = await Product.find({ price: 599 })
       .sort({ _id: -1 })
       .select(["categoryImage", "description", "new", "name", "category"])
       .lean();
