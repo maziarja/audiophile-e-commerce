@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const ProductSchema = z.object({
-  _id: z.string(),
+  // _id: z.string(),
   slug: z.string(),
   name: z.string(),
   image: z.object({
@@ -61,7 +61,7 @@ export const ProductsSchema = z.array(ProductSchema);
 export type ProductType = z.infer<typeof ProductSchema>;
 
 const ProductByCategorySchema = ProductSchema.pick({
-  _id: true,
+  // _id: true,
   categoryImage: true,
   description: true,
   new: true,

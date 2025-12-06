@@ -2,10 +2,7 @@
 
 import { convertToObject } from "@/lib/convertToObject";
 import connectDB from "@/lib/database";
-import {
-  ProductsByCategorySchema,
-  ProductType,
-} from "@/lib/schemas/productType";
+import { ProductsByCategorySchema } from "@/lib/schemas/productType";
 import Product from "@/models/Products";
 
 export async function getProductByCategory(category: string) {
@@ -23,7 +20,7 @@ export async function getProductByCategory(category: string) {
     }
 
     if (result.success) return result.data;
-    return productsDoc as ProductType[];
+    return productsDoc;
   } catch (error) {
     console.error(error);
     // throw new Error("Failed to fetch products");
