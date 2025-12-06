@@ -1,4 +1,4 @@
-import Category from "@/components/category/Category";
+// import Category from "@/components/category/Category";
 import { getProductByCategory } from "../_actions/products/getProductsByCategory";
 import Products from "@/components/share/Products";
 
