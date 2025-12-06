@@ -12,7 +12,8 @@ type SearchParams = {
 };
 
 async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
-  const { type: category } = await searchParams;
+  const params = await searchParams;
+  const category = params.type;
   if (!category) redirect("/");
   const products = await getProductByCategory(category);
 
