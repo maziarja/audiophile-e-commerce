@@ -13,7 +13,7 @@ type SearchParams = {
 async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams;
   const category = params.type;
-  // const products = await getProductByCategory(category);
+  const products = await getProductByCategory(category);
   return (
     <section>
       <div className="bg-[#191919] py-8 text-center text-[28px] font-bold tracking-[2px] text-white uppercase">
