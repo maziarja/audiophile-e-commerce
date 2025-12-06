@@ -11,13 +11,11 @@ import Product from "@/models/Products";
 export async function getProductByCategory(category: string) {
   try {
     await connectDB();
-    console.log("Fetching products for category:", category);
-    const productsDoc = await Product.find({ category }).lean();
-    console.log("Products fetched:", productsDoc.length);
-    // .sort({ _id: -1 })
-    // .select(["categoryImage", "description", "new", "name", "category"])
-
-    const products = convertToObject(productsDoc);
+    const productsDoc = await Product.find({ category })
+      // .sort({ _id: -1 })
+      // .select(["categoryImage", "description", "new", "name", "category"])
+      .lean();
+    // const products = convertToObject(productsDoc);
 
     // const result = ProductsByCategorySchema.safeParse(products);
     // if (!result.success) {
@@ -25,9 +23,9 @@ export async function getProductByCategory(category: string) {
     // }
 
     // if (result.success) return result.data;
-    return products as ProductType[];
+    return productsDoc as ProductType[];
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to fetch products");
+    // throw new Error("Failed to fetch products");
   }
 }
