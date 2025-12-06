@@ -5,6 +5,7 @@ import BrandStory from "../components/share/BrandStory";
 import Footer from "../components/share/Footer";
 import Navbar from "@/components/share/Navbar";
 import { Suspense } from "react";
+import Spinner from "@/components/ui/spinner";
 
 export const metadata: Metadata = {
   title: {
@@ -29,7 +30,9 @@ export default function RootLayout({
       <body className={`antialiased ${manrope.className}`}>
         {
           <>
-            <Navbar />
+            <Suspense fallback={<Spinner />}>
+              <Navbar />
+            </Suspense>
             {children}
             <BrandStory className="mb-30 md:mb-24 lg:mb-59.25" />
             <Footer />
