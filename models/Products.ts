@@ -2,7 +2,7 @@
 import mongoose, { Document, Model, models, Schema } from "mongoose";
 
 type ProductType = {
-  _id: mongoose.Types.ObjectId;
+  _id: string;
   slug: string;
   name: string;
   image: { mobile: string; tablet: string; desktop: string };

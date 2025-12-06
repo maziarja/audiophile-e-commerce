@@ -61,7 +61,7 @@ export const ProductsSchema = z.array(ProductSchema);
 export type ProductType = z.infer<typeof ProductSchema>;
 
 const ProductByCategorySchema = ProductSchema.pick({
-  // _id: true,
+  _id: true,
   categoryImage: true,
   description: true,
   new: true,
