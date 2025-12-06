@@ -1,28 +1,29 @@
+import { ProductType } from "@/lib/schemas/productType";
 import mongoose, { Document, Model, models, Schema } from "mongoose";
 
-type ProductType = {
-  _id: mongoose.Types.ObjectId;
-  slug: string;
-  name: string;
-  image: { mobile: string; tablet: string; desktop: string };
-  category: string;
-  categoryImage: { mobile: string; tablet: string; desktop: string };
-  new: boolean;
-  price: number;
-  description: string;
-  features: string;
-  includes: { quantity: number; item: string }[];
-  gallery: {
-    first: { mobile: string; tablet: string; desktop: string };
-    second: { mobile: string; tablet: string; desktop: string };
-    third: { mobile: string; tablet: string; desktop: string };
-  };
-  others: {
-    slug: string;
-    name: string;
-    image: { mobile: string; tablet: string; desktop: string };
-  }[];
-};
+// type ProductType = {
+//   _id: mongoose.Types.ObjectId;
+//   slug: string;
+//   name: string;
+//   image: { mobile: string; tablet: string; desktop: string };
+//   category: string;
+//   categoryImage: { mobile: string; tablet: string; desktop: string };
+//   new: boolean;
+//   price: number;
+//   description: string;
+//   features: string;
+//   includes: { quantity: number; item: string }[];
+//   gallery: {
+//     first: { mobile: string; tablet: string; desktop: string };
+//     second: { mobile: string; tablet: string; desktop: string };
+//     third: { mobile: string; tablet: string; desktop: string };
+//   };
+//   others: {
+//     slug: string;
+//     name: string;
+//     image: { mobile: string; tablet: string; desktop: string };
+//   }[];
+// };
 
 const productSchema = new Schema<ProductType & Document>(
   {
@@ -67,7 +68,7 @@ const productSchema = new Schema<ProductType & Document>(
       required: [true, "Product must have some other products"],
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Product: Model<ProductType & Document> =
