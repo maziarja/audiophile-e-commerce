@@ -41,7 +41,7 @@ function Products({
                 {product.title}
               </p>
               <Link
-                onClick={closeMenu}
+                // onClick={closeMenu}
                 href={`/category?type=${product.title}`}
                 className="mx-auto flex items-center gap-1 text-center"
               >
