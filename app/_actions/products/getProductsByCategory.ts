@@ -15,14 +15,14 @@ export async function getProductByCategory(category: string) {
       .sort({ _id: -1 })
       .select(["categoryImage", "description", "new", "name", "category"])
       .lean();
-    // const products = convertToObject(productsDoc);
+    const products = convertToObject(productsDoc);
 
-    // const result = ProductsByCategorySchema.safeParse(products);
-    // if (!result.success) {
-    //   throw new Error("Error: " + result.error.issues[0].message);
-    // }
+    const result = ProductsByCategorySchema.safeParse(products);
+    if (!result.success) {
+      throw new Error("Error: " + result.error.issues[0].message);
+    }
 
-    // if (result.success) return result.data;
+    if (result.success) return result.data;
     return productsDoc as ProductType[];
   } catch (error) {
     console.error(error);
