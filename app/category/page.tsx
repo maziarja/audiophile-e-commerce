@@ -13,8 +13,7 @@ type SearchParams = {
 async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams;
   const category = params.type;
-  console.log(category);
-  const products = await getProductByCategory(category);
+  const products = (await getProductByCategory(category)) || [];
 
   return (
     <section>
