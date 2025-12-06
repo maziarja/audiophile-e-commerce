@@ -1,17 +1,19 @@
 import Category from "@/components/category/Category";
 import { getProductByCategory } from "../_actions/products/getProductsByCategory";
 import Products from "@/components/share/Products";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Category",
 };
 
-type SearchParams = Promise<{
-  type: string;
-}>;
+type SearchParams = {
+  type?: string;
+};
 
-async function Page({ searchParams }: { searchParams: SearchParams }) {
+async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const { type: category } = await searchParams;
+  if (!category) redirect("/");
   const products = await getProductByCategory(category);
 
   return (
