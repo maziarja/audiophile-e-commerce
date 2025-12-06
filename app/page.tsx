@@ -2,7 +2,7 @@ import Hero from "@/components/home/Hero";
 import ProductPreview from "../components/home/ProductPreview";
 import Products from "../components/share/Products";
 
-function Page() {
+async function Page() {
   return (
     <>
       <Hero className="mb-9.25 md:mb-24 lg:mb-30" />

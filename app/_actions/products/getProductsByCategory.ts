@@ -21,6 +21,7 @@ export async function getProductByCategory(category: string) {
     // }
 
     // if (result.success) return result.data;
+    console.log(productsDoc);
     return productsDoc;
   } catch (error) {
     console.error(error);
