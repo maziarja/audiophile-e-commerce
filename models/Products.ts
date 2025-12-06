@@ -71,6 +71,8 @@ const productSchema = new Schema<ProductType & Document>(
   { timestamps: true },
 );
 
+productSchema.index({ category: 1 });
+
 const Product: Model<ProductType & Document> =
   models.Product ||
   mongoose.model<ProductType & Document>("Product", productSchema);
