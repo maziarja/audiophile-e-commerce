@@ -4,6 +4,7 @@ import { Manrope } from "next/font/google";
 import BrandStory from "../components/share/BrandStory";
 import Footer from "../components/share/Footer";
 import Navbar from "@/components/share/Navbar";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: {
