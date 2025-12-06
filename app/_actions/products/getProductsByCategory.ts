@@ -13,14 +13,14 @@ export async function getProductByCategory(category: string) {
       // .select(["categoryImage", "description", "new", "name", "category"])
       .select("name")
       .lean();
-    const products = convertToObject(productsDoc);
-    console.log(productsDoc);
-    const result = ProductsByCategorySchema.safeParse(products);
-    if (!result.success) {
-      throw new Error("Error: " + result.error.issues[0].message);
-    }
+    // const products = convertToObject(productsDoc);
+    // console.log(productsDoc);
+    // const result = ProductsByCategorySchema.safeParse(products);
+    // if (!result.success) {
+    //   throw new Error("Error: " + result.error.issues[0].message);
+    // }
 
-    if (result.success) return result.data;
+    // if (result.success) return result.data;
     return productsDoc;
   } catch (error) {
     console.error(error);
