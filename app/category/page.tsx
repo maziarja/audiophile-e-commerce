@@ -1,7 +1,6 @@
-// import Category from "@/components/category/Category";
+import Category from "@/components/category/Category";
 import { getProductByCategory } from "../_actions/products/getProductsByCategory";
 import Products from "@/components/share/Products";
-import { getTest } from "../_actions/products/getTest";
 
 export const metadata = {
   title: "Category",
@@ -14,8 +13,7 @@ type SearchParams = {
 async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams;
   const category = params.type;
-  // const products = await getProductByCategory(category);
-  const test = await getTest("maz");
+  const products = await getProductByCategory(category);
 
   return (
     <section>
@@ -23,10 +21,9 @@ async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
         {category}
       </div>
       <div className="mt-16 mb-30 flex flex-col items-center justify-center gap-30 px-6 md:mt-30 md:px-10 xl:mt-40 xl:mb-40 xl:gap-40 xl:px-41.25">
-        {/* {products?.map((product, i) => (
+        {products?.map((product, i) => (
           <Category key={i} product={product} index={i} />
-        ))} */}
-        {test?.name}
+        ))}
       </div>
       <Products className="mb-30 lg:mb-40" />
     </section>
