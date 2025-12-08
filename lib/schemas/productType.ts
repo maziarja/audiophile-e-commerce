@@ -46,6 +46,7 @@ export const ProductSchema = z.object({
 
   others: z.array(
     z.object({
+      _id: z.string(),
       slug: z.string(),
       name: z.string(),
       image: z.object({
@@ -69,5 +70,5 @@ const ProductByCategorySchema = ProductSchema.pick({
   category: true,
 });
 
-export const ProductsByCategorySchema = z.array(ProductByCategorySchema);
+export const ProductsByCategorySchema = z.array(ProductByCategorySchema).min(1);
 export type ProductTypeByCategory = z.infer<typeof ProductByCategorySchema>;

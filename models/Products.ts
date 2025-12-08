@@ -1,30 +1,6 @@
 import { ProductType } from "@/lib/schemas/productType";
 import mongoose, { Document, Model, models, Schema } from "mongoose";
 
-// type ProductType = {
-//   _id: string;
-//   slug: string;
-//   name: string;
-//   image: { mobile: string; tablet: string; desktop: string };
-//   category: string;
-//   categoryImage: { mobile: string; tablet: string; desktop: string };
-//   new: boolean;
-//   price: number;
-//   description: string;
-//   features: string;
-//   includes: { quantity: number; item: string }[];
-//   gallery: {
-//     first: { mobile: string; tablet: string; desktop: string };
-//     second: { mobile: string; tablet: string; desktop: string };
-//     third: { mobile: string; tablet: string; desktop: string };
-//   };
-//   others: {
-//     slug: string;
-//     name: string;
-//     image: { mobile: string; tablet: string; desktop: string };
-//   }[];
-// };
-
 const productSchema = new Schema<ProductType & Document>(
   {
     slug: { type: String, required: [true, "Product must have slug"] },
@@ -60,6 +36,7 @@ const productSchema = new Schema<ProductType & Document>(
     others: {
       type: [
         {
+          _id: String,
           slug: String,
           name: String,
           image: { mobile: String, tablet: String, desktop: String },

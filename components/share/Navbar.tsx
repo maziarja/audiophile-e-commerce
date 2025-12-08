@@ -19,7 +19,7 @@ function Navbar() {
     <MobileMenu>
       <MobileMenu.Overlay />
       <div className="bg-[#191919]">
-        <div className="flex max-w-[1110px] items-center justify-between border-b border-[#979797]/11 px-6 py-8 md:mx-6 md:px-0 md:min-[1150px]:mx-auto">
+        <div className="flex max-w-[1110px] items-center justify-between border-b border-[#979797]/11 px-6 py-8 md:mx-10 md:justify-start md:gap-10.5 md:px-0 md:min-[1150px]:mx-auto lg:justify-between lg:pb-9">
           <MobileMenu.ContentTrigger>
             {({ isOpenMenu }) =>
               isOpenMenu ? (
@@ -44,7 +44,7 @@ function Navbar() {
             ))}
           </div>
 
-          <ShoppingCartIcon color="white" className="z-99" />
+          <ShoppingCartIcon color="white" className="z-99 md:ml-auto lg:ml-0" />
         </div>
       </div>
 
