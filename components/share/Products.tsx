@@ -22,7 +22,7 @@ function Products({
     <section
       className={`mx-auto max-w-[1110px] px-6 md:px-10 lg:min-[1150]:px-0 ${className}`}
     >
-      <div className="flex flex-col gap-4 md:flex-row md:gap-2.5">
+      <div className="flex flex-col gap-4 md:flex-row md:gap-2.5 lg:gap-7.5">
         {products.map((product) => (
           <div
             key={product.title}
@@ -45,7 +45,7 @@ function Products({
                 href={`/category?type=${product.title}`}
                 className="mx-auto flex items-center gap-1 text-center"
               >
-                <span className="text-[13px] font-bold tracking-[1px] opacity-50">
+                <span className="text-[13px] font-bold tracking-[1px] opacity-50 hover:text-[#d87d4a] hover:opacity-100 active:text-[#d87d4a] active:opacity-100">
                   SHOP
                 </span>
                 <ChevronRight color="#d87d4a" size={20} />

@@ -5,13 +5,16 @@ import connectDB from "@/lib/database";
 import { ProductsByCategorySchema } from "@/lib/schemas/productType";
 import Product from "@/models/Products";
 
-export async function getProductByCategory(category: string) {
+export async function getProductByCategory(
+  category: "speakers" | "headphones" | "earphones",
+) {
   try {
     await connectDB();
     const productsDoc = await Product.find({ category })
       .sort({ _id: -1 })
       .select(["categoryImage", "description", "new", "name", "category"])
       .lean();
+
     const products = convertToObject(productsDoc);
     const result = ProductsByCategorySchema.safeParse(products);
     if (!result.success) {

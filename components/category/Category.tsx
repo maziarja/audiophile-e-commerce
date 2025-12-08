@@ -11,7 +11,7 @@ function Category({
 }) {
   return (
     <div className="grid w-full gap-8 md:gap-13 lg:grid-cols-2 lg:items-center lg:gap-31.25">
-      <picture className={`${index % 2 === 0 ? "order-1" : "order-2"}`}>
+      <picture className={`${index % 2 === 0 ? "lg:order-1" : "lg:order-2"}`}>
         <source
           media="(min-width: 1024px)"
           srcSet={product.categoryImage.desktop}
@@ -27,7 +27,7 @@ function Category({
         />
       </picture>
       <div
-        className={`space-y-6 text-center md:mx-auto md:w-[83%] md:space-y-0 lg:text-left ${index % 2 === 0 ? "order-2" : "order-1"}`}
+        className={`space-y-6 text-center md:mx-auto md:w-[83%] md:space-y-0 lg:text-left ${index % 2 === 0 ? "lg:order-2" : "lg:order-1"}`}
       >
         {product.new && (
           <p className="overlineClass uppercase md:mb-4">new product</p>
