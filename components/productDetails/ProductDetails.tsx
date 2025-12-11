@@ -7,7 +7,7 @@ import AddToCard from "./AddToCard";
 import Gallery from "./Gallery";
 import OtherProducts from "./OtherProducts";
 
-function ProductDetails({
+async function ProductDetails({
   className,
   product,
 }: {
@@ -25,7 +25,8 @@ function ProductDetails({
             description={product.description}
             price={product.price}
           />
-          <AddToCard />
+
+          <AddToCard productId={product._id} />
         </div>
       </div>
       <div className="lg:grid lg:grid-cols-2 lg:gap-31.25">

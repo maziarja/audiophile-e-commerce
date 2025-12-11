@@ -1,11 +1,13 @@
 "use client";
 
-import { MenuIcon, ShoppingCartIcon, XIcon } from "lucide-react";
+import { MenuIcon, ShoppingCartIcon, UserIcon, XIcon } from "lucide-react";
 import logo from "@/public/assets/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "../home/MobileMenu";
 import Products from "./Products";
+import { useCart } from "@/app/contexts/CartContext";
+import UserAccount from "../auth/UserAccount";
 
 function Navbar() {
   const nav = [
@@ -14,6 +16,9 @@ function Navbar() {
     { title: "speakers", href: "/category?type=speakers" },
     { title: "earphones", href: "/category?type=earphones" },
   ];
+
+  const { cart } = useCart();
+  const quantity = cart.reduce((acc, cur) => acc + cur.quantity, 0);
 
   return (
     <MobileMenu>
@@ -43,8 +48,20 @@ function Navbar() {
               </Link>
             ))}
           </div>
-
-          <ShoppingCartIcon color="white" className="z-99 md:ml-auto lg:ml-0" />
+          <div className="flex items-center gap-2 md:ml-auto lg:ml-0">
+            <UserAccount trigger={<UserIcon className="text-white" />} />
+            <div className="relative">
+              <ShoppingCartIcon
+                color="white"
+                className="z-99 md:ml-auto lg:ml-0"
+              />
+              {quantity > 0 && (
+                <p className="absolute -top-4 -right-3 flex size-4.5 items-center justify-center rounded-full bg-white text-xs font-bold">
+                  {quantity}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
