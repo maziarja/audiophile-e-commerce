@@ -4,6 +4,7 @@ import { Manrope } from "next/font/google";
 import BrandStory from "../components/share/BrandStory";
 import Footer from "../components/share/Footer";
 import Navbar from "@/components/share/Navbar";
+import { CartProvider } from "./contexts/CartContext";
 
 export const metadata: Metadata = {
   title: {
@@ -28,10 +29,12 @@ export default function RootLayout({
       <body className={`antialiased ${manrope.className}`}>
         {
           <>
-            <Navbar />
-            {children}
-            <BrandStory className="mb-30 md:mb-24 lg:mb-59.25" />
-            <Footer />
+            <CartProvider>
+              <Navbar />
+              {children}
+              <BrandStory className="mb-30 md:mb-24 lg:mb-59.25" />
+              <Footer />
+            </CartProvider>
           </>
         }
       </body>
