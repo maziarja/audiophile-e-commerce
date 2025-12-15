@@ -14,8 +14,8 @@ function SignInForm() {
   const form = useForm({
     resolver: zodResolver(AuthSchema),
     defaultValues: {
-      emailAddress: "mazi@gmail.com",
-      password: "mazimazi",
+      emailAddress: "",
+      password: "",
     },
   });
 
