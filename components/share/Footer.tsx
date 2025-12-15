@@ -21,19 +21,19 @@ function Footer() {
             </Link>
             <Link
               className="hover:text-[#d87d4a] active:text-[#d87d4a]"
-              href={"/headphones"}
+              href={"/category?type=headphones"}
             >
               headphones
             </Link>
             <Link
               className="hover:text-[#d87d4a] active:text-[#d87d4a]"
-              href={"/speakers"}
+              href={"/category?type=speakers"}
             >
               speakers
             </Link>
             <Link
               className="hover:text-[#d87d4a] active:text-[#d87d4a]"
-              href={"/earphones"}
+              href={"/category?type=earphones"}
             >
               earphones
             </Link>

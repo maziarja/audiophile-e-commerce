@@ -56,7 +56,7 @@ function ShoppingCartItems({
     }
   }
 
-  if (shoppingCartItem.quantity <= 0) return null;
+  if (quantity <= 0) return null;
   return (
     <div className="flex items-center justify-between gap-5">
       <div className="flex items-center gap-4">
@@ -78,7 +78,13 @@ function ShoppingCartItems({
           </p>
           {shoppingCartItem.discount && (
             <p className="bold text-[14px] leading-[25px] text-black opacity-50">
-              {` $ ${(shoppingCartItem.price * (1 - (shoppingCartItem.discount ?? 0))).toFixed(2)}`}
+              {` $ ${(
+                shoppingCartItem.price *
+                (1 - (shoppingCartItem.discount ?? 0))
+              ).toLocaleString("en-us", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })}`}
             </p>
           )}
         </div>

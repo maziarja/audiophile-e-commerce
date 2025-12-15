@@ -5,6 +5,7 @@ import speakerZX9Tablet from "@/public/assets/home/tablet/image-speaker-zx9.png"
 import speakerZX9Desktop from "@/public/assets/home/desktop/image-speaker-zx9.png";
 
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 function ProductPreview({ className }: { className?: string }) {
   return (
@@ -42,12 +43,14 @@ function ProductPreview({ className }: { className?: string }) {
             Upgrade to premium speakers that are phenomenally built to deliver
             truly remarkable sound.
           </p>
-          <Button
-            size={"lg"}
-            className="z-9 bg-black hover:bg-[#4c4c4c] active:bg-[#4c4c4c] md:mt-4"
-          >
-            see product
-          </Button>
+          <Link href={"/products/6935e4880a744b9a81b06e77"}>
+            <Button
+              size={"lg"}
+              className="z-9 bg-black hover:bg-[#4c4c4c] active:bg-[#4c4c4c] md:mt-4"
+            >
+              see product
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="flex h-80 flex-col items-start justify-center rounded-lg bg-[#f1f1f1] bg-[url(/assets/home/mobile/image-speaker-zx7.jpg)] bg-cover bg-no-repeat md:bg-[url(/assets/home/tablet/image-speaker-zx7.jpg)] lg:bg-[url(/assets/home/desktop/image-speaker-zx7.jpg)]">
@@ -55,9 +58,11 @@ function ProductPreview({ className }: { className?: string }) {
           <p className="text-[28px] font-bold tracking-[2px] uppercase">
             zx7 speaker
           </p>
-          <Button size={"lg"} variant={"outline"}>
-            see product
-          </Button>
+          <Link href={"/products/6935e4880a744b9a81b06e76"}>
+            <Button size={"lg"} variant={"outline"}>
+              see product
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col items-center gap-6 md:flex-row md:gap-2.5 lg:gap-7.5">
@@ -67,9 +72,11 @@ function ProductPreview({ className }: { className?: string }) {
             <p className="text-[28px] font-bold tracking-[2px] uppercase">
               yx1 earphones
             </p>
-            <Button size={"lg"} variant={"outline"}>
-              see product
-            </Button>
+            <Link href={"/products/6935e4880a744b9a81b06e72"}>
+              <Button size={"lg"} variant={"outline"}>
+                see product
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

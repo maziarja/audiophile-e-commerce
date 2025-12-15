@@ -7,6 +7,7 @@ import { useCart } from "@/app/_contexts/CartContext";
 import { isLoggedInUser } from "@/app/_actions/users/isLoggedInUser";
 import { addToDBCart } from "@/app/_actions/shoppingCart/addToDBCart";
 import { REGISTRATION_DISCOUNT } from "@/lib/const";
+import { toast } from "sonner";
 
 type AddToCardProps = {
   productId: string;
@@ -23,13 +24,19 @@ function AddToCard({ productId }: AddToCardProps) {
       const cartStr = window.localStorage.getItem("cart");
       const cart = cartStr ? JSON.parse(cartStr) : [];
       setCart(cart);
+      toast.success("Item added to your cart");
+      setQuantity(1);
     } else {
-      await addToDBCart({
+      const result = await addToDBCart({
         quantity,
         productId,
         discount: REGISTRATION_DISCOUNT,
       });
       refreshDBCart();
+      if (result?.success) {
+        toast.success("Item added to your cart");
+        setQuantity(1);
+      }
     }
   }
 

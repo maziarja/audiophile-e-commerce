@@ -53,9 +53,10 @@ export async function addToDBCart(cart: DBCartType[0]) {
         }
       }
 
+      revalidatePath("/");
       user.cart = newCart;
       await user.save();
+      return { success: true };
     }
   }
-  revalidatePath("/");
 }

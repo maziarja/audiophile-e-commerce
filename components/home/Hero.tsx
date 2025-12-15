@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 function Hero({ className }: { className?: string }) {
   return (
@@ -18,7 +19,9 @@ function Hero({ className }: { className?: string }) {
               Experience natural, lifelike audio and exceptional build quality
               made for the passionate music enthusiast.
             </p>
-            <Button size={"lg"}>SEE PRODUCT</Button>
+            <Link href={"/products/6935e4880a744b9a81b06e75"}>
+              <Button size={"lg"}>SEE PRODUCT</Button>
+            </Link>
           </div>
         </div>
       </div>

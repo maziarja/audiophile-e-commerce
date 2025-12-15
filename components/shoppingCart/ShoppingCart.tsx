@@ -1,7 +1,7 @@
 "use client";
 
 import { DBCartType } from "@/lib/schemas/cartType";
-import { DropdownMenuContent } from "../ui/dropdown-menu";
+import { DropdownMenuContent, DropdownMenuItem } from "../ui/dropdown-menu";
 import { useCart } from "@/app/_contexts/CartContext";
 import {
   Card,
@@ -18,6 +18,7 @@ import { LocalProductCartType } from "@/lib/schemas/productType";
 import { getDBCartProducts } from "@/app/_actions/shoppingCart/getDBCartProducts";
 import { Button } from "../ui/button";
 import { deleteDBCart } from "@/app/_actions/shoppingCart/deleteDBCart";
+import { useRouter } from "next/navigation";
 
 type Props = {
   shoppingCartDB: DBCartType;
@@ -35,7 +36,7 @@ function ShoppingCart({ shoppingCartDB, loggedInUser }: Props) {
   const [shoppingCartProduct, setShoppingCartProduct] = useState<
     ProductCartItem[]
   >([]);
-
+  const router = useRouter();
   useEffect(() => {
     async function getShoppingCart() {
       if (!loggedInUser) {
@@ -95,15 +96,15 @@ function ShoppingCart({ shoppingCartDB, loggedInUser }: Props) {
   );
 
   return (
-    <DropdownMenuContent sideOffset={50} className="mr-4">
-      <Card className="w-[327px]">
+    <DropdownMenuContent sideOffset={70} className="" align="end">
+      <Card className="w-[327px] sm:w-[377px]">
         <CardHeader>
           <CardTitle className="text-[18px] font-bold tracking-[1.29px]">
             CART ({shoppingCart.length})
           </CardTitle>
           <CardAction
             onClick={handleRemoveAllCart}
-            className="cursor-pointer text-[15px] leading-[25px] font-medium text-black underline opacity-50"
+            className="cursor-pointer text-[15px] leading-[25px] font-medium text-black underline opacity-50 hover:text-[#d87d41] hover:opacity-100 active:text-[#d87d41] active:opacity-100"
           >
             Remove All
           </CardAction>
@@ -121,13 +122,21 @@ function ShoppingCart({ shoppingCartDB, loggedInUser }: Props) {
               TOTAL
             </p>
             <p className="text-[18px] font-bold">
-              $ {totalPrice.toLocaleString()}
+              ${" "}
+              {totalPrice.toLocaleString("en-us", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })}
             </p>
           </div>
-
-          <Button size="lg" className="w-full font-bold">
-            CHECKOUT
-          </Button>
+          <DropdownMenuItem
+            className="w-full p-0"
+            onSelect={() => router.push("/checkout")}
+          >
+            <Button size="lg" className="w-full font-bold">
+              CHECKOUT
+            </Button>
+          </DropdownMenuItem>
         </CardFooter>
       </Card>
     </DropdownMenuContent>
