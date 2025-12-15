@@ -1,6 +1,6 @@
 "use server";
 
-import { convertToObject } from "@/lib/convertToObject";
+import { convertToObject } from "@/lib/helpers/convertToObject";
 import connectDB from "@/lib/database";
 import { ProductSchema } from "@/lib/schemas/productType";
 import Product from "@/models/Products";

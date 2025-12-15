@@ -5,8 +5,13 @@ import { Button } from "../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthSchema, AuthType } from "@/lib/schemas/authType";
 import { signUp } from "@/app/_actions/users/signUp";
+import Spinner from "../ui/spinner";
 
-function SignUpForm() {
+type Props = {
+  onActiveTab: React.Dispatch<React.SetStateAction<"signIn" | "joinUs">>;
+};
+
+function SignUpForm({ onActiveTab }: Props) {
   const form = useForm({
     resolver: zodResolver(AuthSchema),
     defaultValues: {
@@ -16,7 +21,10 @@ function SignUpForm() {
   });
 
   async function onSubmit(data: AuthType) {
-    await signUp(data);
+    const result = await signUp(data);
+    if (result?.success) {
+      onActiveTab("signIn");
+    }
   }
 
   return (
@@ -57,7 +65,7 @@ function SignUpForm() {
         />
       </FieldGroup>
       <Button type="submit" className="w-full rounded-md text-white">
-        Join for Free
+        {!form.formState.isSubmitting ? "  Join for Free" : <Spinner />}
       </Button>
     </form>
   );

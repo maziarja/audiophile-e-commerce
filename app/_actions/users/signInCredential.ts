@@ -1,24 +1,19 @@
 "use server";
 
-import bcrypt from "bcryptjs";
-import connectDB from "@/lib/database";
+import { signIn } from "@/lib/auth";
 import { AuthSchema, AuthType } from "@/lib/schemas/authType";
-import User from "@/models/Users";
 
-export async function signUp(data: AuthType) {
+export async function signInCredential(data: AuthType) {
   try {
-    await connectDB();
     const validData = AuthSchema.safeParse(data);
     if (!validData.success) {
       throw new Error(validData.error.issues[0].message);
     }
-    const hashedPassword = await bcrypt.hash(validData.data.password, 10);
-
-    await User.create({
+    await signIn("credentials", {
       emailAddress: validData.data.emailAddress,
-      password: hashedPassword,
+      password: validData.data.password,
+      redirect: false,
     });
-
     return { success: true };
   } catch (error) {
     console.error(error);

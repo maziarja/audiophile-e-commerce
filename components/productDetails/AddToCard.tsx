@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { addToCart } from "@/lib/addToCart";
-import { useCart } from "@/app/contexts/CartContext";
+import { addToCart } from "@/lib/helpers/addToCart";
+import { useCart } from "@/app/_contexts/CartContext";
+import { isLoggedInUser } from "@/app/_actions/users/isLoggedInUser";
+import { addToDBCart } from "@/app/_actions/shoppingCart/addToDBCart";
 
 type AddToCardProps = {
   productId: string;
@@ -11,18 +13,18 @@ type AddToCardProps = {
 
 function AddToCard({ productId }: AddToCardProps) {
   const [quantity, setQuantity] = useState(1);
-  const { setCart } = useCart();
+  const { setCart, refreshDBCart } = useCart();
 
   async function handleClickCart() {
-    const loggedInUser = false;
-
+    const loggedInUser = await isLoggedInUser();
     if (!loggedInUser) {
       addToCart(productId, quantity);
       const cartStr = window.localStorage.getItem("cart");
       const cart = cartStr ? JSON.parse(cartStr) : [];
       setCart(cart);
     } else {
-      // Call server action for adding cart user
+      await addToDBCart({ quantity, productId });
+      refreshDBCart();
     }
   }
 

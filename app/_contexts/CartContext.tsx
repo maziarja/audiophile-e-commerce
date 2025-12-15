@@ -9,6 +9,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { LocalCartType } from "@/lib/schemas/cartType";
 
 type CartContextType = {
   cart: {
@@ -23,33 +24,25 @@ type CartContextType = {
       }[]
     >
   >;
+  dbCartVersion: number;
+  refreshDBCart: () => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 function CartProvider({ children }: PropsWithChildren) {
-  const [cart, setCart] = useState<{ quantity: number; productId: string }[]>(
-    [],
-  );
+  const [cart, setCart] = useState<LocalCartType>([]);
+  const [dbCartVersion, setDbCartVersion] = useState(0);
+
+  function refreshDBCart() {
+    setDbCartVersion((v) => v + 1);
+  }
 
   useEffect(() => {
-    async function getCartItem() {
-      // temporary
-      const loggedInUser = false;
-      if (!loggedInUser) {
-        // Get cart from localStorage
-        const cartStr = window.localStorage.getItem("cart");
-        const cart: { productId: string; quantity: number }[] = cartStr
-          ? JSON.parse(cartStr)
-          : [];
-
-        setCart(cart);
-      } else {
-        // Get cart from DB
-        // Later we get cartQuantity on DB
-      }
-    }
-    getCartItem();
+    const cartStr = window.localStorage.getItem("cart");
+    const cart: LocalCartType = cartStr ? JSON.parse(cartStr) : [];
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCart(cart);
   }, []);
 
   return (
@@ -57,6 +50,8 @@ function CartProvider({ children }: PropsWithChildren) {
       value={{
         cart,
         setCart,
+        dbCartVersion,
+        refreshDBCart,
       }}
     >
       {children}

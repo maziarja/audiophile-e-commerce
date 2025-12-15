@@ -1,4 +1,6 @@
 import mongoose, { Document, Model, models, Schema } from "mongoose";
+import Product from "./Products";
+import { REGISTRATION_DISCOUNT } from "@/lib/const";
 
 type UserType = {
   fullName?: string;
@@ -10,6 +12,11 @@ type UserType = {
   city?: string;
   country?: string;
   paymentMethod?: "e-Money" | "cash";
+  cart?: {
+    productId: mongoose.Types.ObjectId;
+    quantity: number;
+    discount: number;
+  }[];
 };
 
 const userSchema = new Schema<UserType & Document>({
@@ -19,11 +26,33 @@ const userSchema = new Schema<UserType & Document>({
   },
   emailAddress: {
     type: String,
+    unique: true,
     required: [true, "Please enter your email address"],
   },
   password: {
     type: String,
     required: [true, "Please enter your password"],
+  },
+
+  cart: {
+    _id: false,
+    type: [
+      {
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: Product,
+        },
+        quantity: {
+          type: Number,
+          min: [1, "Cart quantity cannot be negative or zero"],
+        },
+        discount: {
+          type: Number,
+          default: REGISTRATION_DISCOUNT,
+        },
+      },
+    ],
+    default: [],
   },
   phoneNumber: {
     type: String,
