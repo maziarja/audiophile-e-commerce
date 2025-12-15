@@ -72,3 +72,33 @@ const ProductByCategorySchema = ProductSchema.pick({
 
 export const ProductsByCategorySchema = z.array(ProductByCategorySchema).min(1);
 export type ProductTypeByCategory = z.infer<typeof ProductByCategorySchema>;
+
+export const LocalProductCartSchema = z.array(
+  ProductSchema.pick({
+    _id: true,
+    categoryImage: true,
+    name: true,
+    price: true,
+  }),
+);
+
+export type LocalProductCartType = z.infer<typeof LocalProductCartSchema>;
+
+export const DBProductsCartSchema = z.array(
+  z.object({
+    productId: z.object({
+      _id: z.string(),
+      name: z.string(),
+      categoryImage: z.object({
+        mobile: z.string(),
+        tablet: z.string(),
+        desktop: z.string(),
+      }),
+      price: z.number(),
+    }),
+    quantity: z.number(),
+    discount: z.number().optional(),
+  }),
+);
+
+export type DBProductsCartType = z.infer<typeof DBProductsCartSchema>;

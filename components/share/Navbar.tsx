@@ -6,10 +6,18 @@ import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "../home/MobileMenu";
 import Products from "./Products";
-import { useCart } from "@/app/contexts/CartContext";
+import { useCart } from "@/app/_contexts/CartContext";
 import UserAccount from "../auth/UserAccount";
+import { CartType } from "@/lib/schemas/cartType";
+import { DropdownMenuTrigger } from "../ui/dropdown-menu";
 
-function Navbar() {
+function Navbar({
+  loggedInUser,
+  cartDB,
+}: {
+  loggedInUser: boolean;
+  cartDB: CartType;
+}) {
   const nav = [
     { title: "home", href: "/" },
     { title: "headphones", href: "/category?type=headphones" },
@@ -18,7 +26,9 @@ function Navbar() {
   ];
 
   const { cart } = useCart();
-  const quantity = cart.reduce((acc, cur) => acc + cur.quantity, 0);
+  const quantity = loggedInUser
+    ? cartDB.reduce((acc, cur) => acc + cur.quantity, 0)
+    : cart.reduce((acc, cur) => acc + cur.quantity, 0);
 
   return (
     <MobileMenu>
@@ -34,7 +44,7 @@ function Navbar() {
               )
             }
           </MobileMenu.ContentTrigger>
-          <Link className="z-99" href={"/"}>
+          <Link className="z-99 ml-8 md:ml-0" href={"/"}>
             <Image src={logo} alt="logo" loading="eager" width={0} height={0} />
           </Link>
           <div className="hidden space-x-[34px] lg:flex">
@@ -48,13 +58,18 @@ function Navbar() {
               </Link>
             ))}
           </div>
-          <div className="flex items-center gap-2 md:ml-auto lg:ml-0">
-            <UserAccount trigger={<UserIcon className="text-white" />} />
+          <div className="z-99 flex items-center gap-2 md:ml-auto lg:ml-0">
+            <UserAccount
+              trigger={<UserIcon className="text-white" />}
+              loggedInUser={loggedInUser}
+            />
             <div className="relative">
-              <ShoppingCartIcon
-                color="white"
-                className="z-99 md:ml-auto lg:ml-0"
-              />
+              <DropdownMenuTrigger asChild>
+                <ShoppingCartIcon
+                  color="white"
+                  className="cursor-pointer md:ml-auto lg:ml-0"
+                />
+              </DropdownMenuTrigger>
               {quantity > 0 && (
                 <p className="absolute -top-4 -right-3 flex size-4.5 items-center justify-center rounded-full bg-white text-xs font-bold">
                   {quantity}

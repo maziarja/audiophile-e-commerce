@@ -4,7 +4,10 @@ import { Manrope } from "next/font/google";
 import BrandStory from "../components/share/BrandStory";
 import Footer from "../components/share/Footer";
 import Navbar from "@/components/share/Navbar";
-import { CartProvider } from "./contexts/CartContext";
+import { CartProvider } from "./_contexts/CartContext";
+import { getCartDB } from "./_actions/shoppingCart/getCartDB";
+import { isLoggedInUser } from "./_actions/users/isLoggedInUser";
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
 
 export const metadata: Metadata = {
   title: {
@@ -19,24 +22,28 @@ const manrope = Manrope({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  shoppingCart,
 }: Readonly<{
   children: React.ReactNode;
+  shoppingCart: React.ReactNode;
 }>) {
+  const loggedInUser = await isLoggedInUser();
+  const cartDB = loggedInUser ? await getCartDB() : [];
+
   return (
     <html lang="en">
       <body className={`antialiased ${manrope.className}`}>
-        {
-          <>
-            <CartProvider>
-              <Navbar />
-              {children}
-              <BrandStory className="mb-30 md:mb-24 lg:mb-59.25" />
-              <Footer />
-            </CartProvider>
-          </>
-        }
+        <CartProvider>
+          <DropdownMenu>
+            <Navbar loggedInUser={loggedInUser} cartDB={cartDB} />
+            {shoppingCart}
+          </DropdownMenu>
+          {children}
+          <BrandStory className="mb-30 md:mb-24 lg:mb-59.25" />
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

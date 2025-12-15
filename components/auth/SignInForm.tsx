@@ -4,18 +4,33 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthSchema, AuthType } from "@/lib/schemas/authType";
+import { signInCredential } from "@/app/_actions/users/signInCredential";
+import { useCart } from "@/app/_contexts/CartContext";
+import { replaceCart } from "@/app/_actions/shoppingCart/replaceCart";
+import Spinner from "../ui/spinner";
 
 function SignInForm() {
+  const { cart, setCart } = useCart();
   const form = useForm({
     resolver: zodResolver(AuthSchema),
     defaultValues: {
-      emailAddress: "",
-      password: "",
+      emailAddress: "mazi@gmail.com",
+      password: "mazimazi",
     },
   });
 
-  function onSubmit(data: AuthType) {
-    console.log(data);
+  async function onSubmit(data: AuthType) {
+    const result = await signInCredential(data);
+    if (result?.success) {
+      if (cart.length > 0) {
+        const result = await replaceCart(cart);
+        if (result?.success) {
+          window.localStorage.removeItem("cart");
+          setCart([]);
+        }
+      }
+      window.location.replace("/");
+    }
   }
 
   return (
@@ -56,7 +71,7 @@ function SignInForm() {
         />
       </FieldGroup>
       <Button type="submit" className="w-full rounded-md text-white">
-        Sign In
+        {!form.formState.isSubmitting ? "Sign In" : <Spinner />}
       </Button>
     </form>
   );

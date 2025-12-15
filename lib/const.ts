@@ -1,0 +1,1 @@
+export const REGISTRATION_DISCOUNT = 0.2;

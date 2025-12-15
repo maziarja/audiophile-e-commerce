@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import data from "../data.json";
-import cloudinary from "./cloudinary";
+import data from "../../data.json";
+import cloudinary from "../cloudinary";
 
 // root folder where your images live
 const ROOT = path.join(process.cwd(), "public", "assets");
@@ -47,13 +47,13 @@ async function processData() {
             for (const device of ["mobile", "tablet", "desktop"]) {
               const relativePath = p.gallery[key][device].replace(
                 /^\.\/assets\//,
-                ""
+                "",
               );
               const localPath = path.join(
                 process.cwd(),
                 "public",
                 "assets",
-                relativePath
+                relativePath,
               );
               const cloudPath = `audiophile-ecommerce/${category}/${slug}/${device}`;
 
@@ -65,13 +65,13 @@ async function processData() {
           for (const device of ["mobile", "tablet", "desktop"]) {
             const relativePath = p[section][device].replace(
               /^\.\/assets\//,
-              ""
+              "",
             );
             const localPath = path.join(
               process.cwd(),
               "public",
               "assets",
-              relativePath
+              relativePath,
             );
             const cloudPath = `audiophile-ecommerce/${category}/${slug}/${device}`;
 
@@ -89,13 +89,13 @@ async function processData() {
           for (const device of ["mobile", "tablet", "desktop"]) {
             const relativePath = otherItem.image[device].replace(
               /^\.\/assets\//,
-              ""
+              "",
             );
             const localPath = path.join(
               process.cwd(),
               "public",
               "assets",
-              relativePath
+              relativePath,
             );
             const cloudPath = `audiophile-ecommerce/${category}/${slug}/others/${otherItem.slug}/${device}`;
 
@@ -110,7 +110,7 @@ async function processData() {
 
     fs.writeFileSync(
       "data-with-cloudinary.json",
-      JSON.stringify(newData, null, 2)
+      JSON.stringify(newData, null, 2),
     );
     console.log("🎉 Done! New file created: data-with-cloudinary.json");
   } catch (error) {

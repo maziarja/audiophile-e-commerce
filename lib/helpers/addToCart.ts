@@ -11,12 +11,18 @@ export function addToCart(productId: string, quantity: number) {
       (item) => item.productId === productId,
     )
       ? localStorageValue.map((value) =>
-          value.productId === productId
-            ? { ...value, quantity: quantity + value.quantity }
+          value.productId === productId && value.quantity > 0
+            ? {
+                ...value,
+                quantity: quantity + value.quantity,
+              }
             : value,
         )
       : [...localStorageValue, { productId, quantity }];
 
-    window.localStorage.setItem("cart", JSON.stringify(newValue));
+    // Remove product if quantity === 0
+    const finalValue = newValue.filter((value) => value.quantity !== 0);
+
+    window.localStorage.setItem("cart", JSON.stringify(finalValue));
   }
 }
