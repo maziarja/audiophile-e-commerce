@@ -8,7 +8,7 @@ import MobileMenu from "../home/MobileMenu";
 import Products from "./Products";
 import { useCart } from "@/app/_contexts/CartContext";
 import UserAccount from "../auth/UserAccount";
-import { CartType } from "@/lib/schemas/cartType";
+import { DBCartType } from "@/lib/schemas/cartType";
 import { DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 function Navbar({
@@ -16,7 +16,7 @@ function Navbar({
   cartDB,
 }: {
   loggedInUser: boolean;
-  cartDB: CartType;
+  cartDB: DBCartType;
 }) {
   const nav = [
     { title: "home", href: "/" },
