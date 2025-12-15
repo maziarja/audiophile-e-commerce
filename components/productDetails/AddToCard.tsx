@@ -6,6 +6,7 @@ import { addToCart } from "@/lib/helpers/addToCart";
 import { useCart } from "@/app/_contexts/CartContext";
 import { isLoggedInUser } from "@/app/_actions/users/isLoggedInUser";
 import { addToDBCart } from "@/app/_actions/shoppingCart/addToDBCart";
+import { REGISTRATION_DISCOUNT } from "@/lib/const";
 
 type AddToCardProps = {
   productId: string;
@@ -23,7 +24,11 @@ function AddToCard({ productId }: AddToCardProps) {
       const cart = cartStr ? JSON.parse(cartStr) : [];
       setCart(cart);
     } else {
-      await addToDBCart({ quantity, productId });
+      await addToDBCart({
+        quantity,
+        productId,
+        discount: REGISTRATION_DISCOUNT,
+      });
       refreshDBCart();
     }
   }
