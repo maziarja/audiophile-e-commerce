@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Manrope } from "next/font/google";
-import BrandStory from "../components/share/BrandStory";
 import Footer from "../components/share/Footer";
 import Navbar from "@/components/share/Navbar";
 import { CartProvider } from "./_contexts/CartContext";
 import { getCartDB } from "./_actions/shoppingCart/getCartDB";
 import { isLoggedInUser } from "./_actions/users/isLoggedInUser";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -41,9 +41,9 @@ export default async function RootLayout({
             {shoppingCart}
           </DropdownMenu>
           {children}
-          <BrandStory className="mb-30 md:mb-24 lg:mb-59.25" />
           <Footer />
         </CartProvider>
+        <Toaster position="top-right" />
       </body>
     </html>
   );
