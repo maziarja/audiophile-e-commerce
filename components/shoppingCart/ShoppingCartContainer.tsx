@@ -12,13 +12,12 @@ import {
   CardTitle,
 } from "../ui/card";
 import ShoppingCartItems from "./ShoppingCartItems";
-import { useEffect, useState } from "react";
-import { getLocalCartProducts } from "@/app/_actions/shoppingCart/getLocalCartProducts";
 import { LocalProductCartType } from "@/lib/schemas/productType";
-import { getDBCartProducts } from "@/app/_actions/shoppingCart/getDBCartProducts";
 import { Button } from "../ui/button";
 import { deleteDBCart } from "@/app/_actions/shoppingCart/deleteDBCart";
 import { useRouter } from "next/navigation";
+import EmptyShoppingCart from "./EmptyShoppingCart";
+import { useGetProductsShoppingCart } from "@/app/_hooks/useGetProductsShoppingCart";
 
 type Props = {
   shoppingCartDB: DBCartType;
@@ -31,53 +30,11 @@ export type ProductCartItem = LocalProductCartType[0] & {
 };
 
 function ShoppingCart({ shoppingCartDB, loggedInUser }: Props) {
-  const { cart: localCart, setCart, dbCartVersion, refreshDBCart } = useCart();
+  const { cart: localCart, setCart, refreshDBCart } = useCart();
   const shoppingCart = loggedInUser ? shoppingCartDB : localCart;
-  const [shoppingCartProduct, setShoppingCartProduct] = useState<
-    ProductCartItem[]
-  >([]);
   const router = useRouter();
-  useEffect(() => {
-    async function getShoppingCart() {
-      if (!loggedInUser) {
-        const productIds = localCart.map((item) => item.productId);
-        if (productIds.length === 0) {
-          setShoppingCartProduct([]);
-          return;
-        }
 
-        const products = await getLocalCartProducts(productIds);
-
-        const formatted: ProductCartItem[] = localCart
-          .map((cartItem) => {
-            const product = products?.find((p) => p._id === cartItem.productId);
-
-            if (!product) return null;
-
-            return {
-              ...product,
-              quantity: cartItem.quantity,
-            };
-          })
-          .filter(Boolean) as ProductCartItem[];
-        setShoppingCartProduct(formatted);
-      } else {
-        const products = await getDBCartProducts();
-
-        const formatted = products.map((product) => ({
-          name: product.productId.name,
-          _id: product.productId._id,
-          categoryImage: product.productId.categoryImage,
-          quantity: product.quantity,
-          price: product.productId.price,
-          discount: product.discount,
-        }));
-        setShoppingCartProduct(formatted);
-      }
-    }
-
-    getShoppingCart();
-  }, [localCart, loggedInUser, dbCartVersion]);
+  const shoppingCartProduct = useGetProductsShoppingCart(loggedInUser);
 
   async function handleRemoveAllCart() {
     if (!loggedInUser) {
@@ -94,6 +51,14 @@ function ShoppingCart({ shoppingCartDB, loggedInUser }: Props) {
     (acc, cur) => cur.price * cur.quantity * (1 - (cur.discount ?? 0)) + acc,
     0,
   );
+
+  if (shoppingCartProduct.length === 0) {
+    return (
+      <DropdownMenuContent sideOffset={40} align="end">
+        <EmptyShoppingCart />
+      </DropdownMenuContent>
+    );
+  }
 
   return (
     <DropdownMenuContent sideOffset={70} className="" align="end">

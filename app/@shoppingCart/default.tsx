@@ -1,4 +1,4 @@
-import ShoppingCart from "@/components/shoppingCart/ShoppingCart";
+import ShoppingCart from "@/components/shoppingCart/ShoppingCartContainer";
 import { getCartDB } from "../_actions/shoppingCart/getCartDB";
 import { isLoggedInUser } from "../_actions/users/isLoggedInUser";
 

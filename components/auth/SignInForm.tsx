@@ -22,6 +22,7 @@ function SignInForm() {
   async function onSubmit(data: AuthType) {
     const result = await signInCredential(data);
     if (result?.success) {
+      form.reset();
       if (cart.length > 0) {
         const result = await replaceCart(cart);
         if (result?.success) {
