@@ -43,7 +43,12 @@ export default async function RootLayout({
           {children}
           <Footer />
         </CartProvider>
-        <Toaster position="top-right" />
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 2000,
+          }}
+        />
       </body>
     </html>
   );

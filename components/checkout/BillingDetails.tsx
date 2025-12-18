@@ -5,9 +5,10 @@ import { CheckoutType } from "@/lib/schemas/checkoutType";
 
 type Props = {
   form: UseFormReturn<CheckoutType>;
+  emailAddress: string;
 };
 
-function BillingDetails({ form }: Props) {
+function BillingDetails({ form, emailAddress }: Props) {
   return (
     <div>
       <p className="mb-4 text-[13px] leading-[25px] font-bold tracking-[0.93] text-[#d87d4a] uppercase">
@@ -48,6 +49,15 @@ function BillingDetails({ form }: Props) {
                 aria-invalid={fieldState.invalid}
                 placeholder="alexei@mail.com"
                 autoComplete="off"
+                onChange={(e) => {
+                  if (emailAddress) {
+                    const value = emailAddress;
+                    field.onChange(value);
+                  } else {
+                    const value = e.target.value;
+                    field.onChange(value);
+                  }
+                }}
               />
 
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

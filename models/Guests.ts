@@ -2,36 +2,31 @@ import mongoose, { Document, Model, models, Schema } from "mongoose";
 import Product from "./Products";
 import { REGISTRATION_DISCOUNT } from "@/lib/const";
 
-type UserType = {
-  fullName?: string;
+type GuestType = {
+  fullName: string;
   emailAddress: string;
-  password: string;
-  phoneNumber?: string;
-  address?: string;
-  zipcode?: string;
-  city?: string;
-  country?: string;
+  phoneNumber: string;
+  address: string;
+  zipcode: string;
+  city: string;
+  country: string;
   paymentMethod: "e-money" | "cash" | null;
-  cart?: {
+  cart: {
     productId: mongoose.Types.ObjectId;
     quantity: number;
     discount: number;
   }[];
 };
 
-const userSchema = new Schema<UserType & Document>({
+const guestSchema = new Schema<GuestType & Document>({
   fullName: {
     type: String,
-    // required: [true, "User must have fullname"]
+    required: [true, "Guest must have fullname"],
   },
   emailAddress: {
     type: String,
     unique: true,
     required: [true, "Please enter your email address"],
-  },
-  password: {
-    type: String,
-    required: [true, "Please enter your password"],
   },
 
   cart: {
@@ -56,31 +51,31 @@ const userSchema = new Schema<UserType & Document>({
   },
   phoneNumber: {
     type: String,
-    // required: [true, "User must have phone number"],
+    required: [true, "Guest must have phone number"],
   },
   address: {
     type: String,
-    // required: [true, "User must have address"],
+    required: [true, "Guest must have address"],
   },
   zipcode: {
     type: String,
-    // required: [true, "User must have zipcode"]
+    required: [true, "Guest must have zipcode"],
   },
   city: {
     type: String,
-    //  required: [true, "User must have city"]
+    required: [true, "Guest must have city"],
   },
   country: {
     type: String,
-    //  required: [true, "User must have country"]
+    required: [true, "Guest must have country"],
   },
   paymentMethod: {
     type: String,
-    // required: [true, "User must have payment method"],
+    required: [true, "Guest must have payment method"],
   },
 });
 
-const User: Model<UserType & Document> =
-  models.User || mongoose.model<UserType & Document>("User", userSchema);
+const Guest: Model<GuestType & Document> =
+  models.Guest || mongoose.model<GuestType & Document>("Guest", guestSchema);
 
-export default User;
+export default Guest;
