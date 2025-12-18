@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ProductCartItem } from "./ShoppingCart";
+import { ProductCartItem } from "./ShoppingCartContainer";
 import { isLoggedInUser } from "@/app/_actions/users/isLoggedInUser";
 import { addToCart } from "@/lib/helpers/addToCart";
 import { useCart } from "@/app/_contexts/CartContext";

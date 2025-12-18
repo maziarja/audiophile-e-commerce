@@ -24,6 +24,7 @@ function SignUpForm({ onActiveTab }: Props) {
     const result = await signUp(data);
     if (result?.success) {
       onActiveTab("signIn");
+      form.reset();
     }
   }
 
