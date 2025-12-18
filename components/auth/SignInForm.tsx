@@ -32,6 +32,10 @@ function SignInForm() {
       }
       window.location.replace("/");
     }
+
+    if (!result.success) {
+      form.setError("root", { message: "Invalid email or password" });
+    }
   }
 
   return (
@@ -71,6 +75,9 @@ function SignInForm() {
           )}
         />
       </FieldGroup>
+      {form.formState.errors.root && (
+        <FieldError errors={[form.formState.errors.root]} />
+      )}
       <Button type="submit" className="w-full rounded-md text-white">
         {!form.formState.isSubmitting ? "Sign In" : <Spinner />}
       </Button>

@@ -26,6 +26,12 @@ function SignUpForm({ onActiveTab }: Props) {
       onActiveTab("signIn");
       form.reset();
     }
+
+    if (!result.success) {
+      form.setError("root", {
+        message: "An account with this email already exists.",
+      });
+    }
   }
 
   return (
@@ -65,6 +71,9 @@ function SignUpForm({ onActiveTab }: Props) {
           )}
         />
       </FieldGroup>
+      {form.formState.errors.root && (
+        <FieldError errors={[form.formState.errors.root]} />
+      )}
       <Button type="submit" className="w-full rounded-md text-white">
         {!form.formState.isSubmitting ? "  Join for Free" : <Spinner />}
       </Button>
