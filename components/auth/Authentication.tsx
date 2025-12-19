@@ -18,8 +18,8 @@ function Authentication() {
         <Image src={logo} alt="logo" />
 
         <p className="text-center text-[15px] font-medium text-white">
-          Sign in to view your current status and check out new Challenges! and
-          get 10% off your next purchase
+          Sign in to access your account, track your orders, explore new
+          challenges, and enjoy 10% off all your purchases.
         </p>
       </div>
       <TabsList className="w-full">
