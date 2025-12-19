@@ -38,7 +38,9 @@ function Confirmation({
   return (
     <Dialog onOpenChange={setShowConfirmation} open={showConfirmation}>
       <DialogContent>
-        <DialogHeader className="gap-4.5 md:gap-6">
+        <DialogHeader
+          className={`md:gap-6 ${showOtherItem === 0 ? "gap-4.5" : "gap-1.5"}`}
+        >
           <div className="mb-1.5">
             <IconOrderConfirmation />
           </div>
@@ -59,8 +61,10 @@ function Confirmation({
           </DialogDescription>
         </DialogHeader>
         <div className="md:mb-6 md:grid md:grid-cols-[1fr_198px]">
-          <div className="space-y-3 rounded-t-lg bg-[#f1f1f1] p-6 md:rounded-l-lg md:rounded-tr-none">
-            <div className="space-y-4">
+          <div
+            className={`space-y-3 rounded-t-lg bg-[#f1f1f1] p-6 md:rounded-l-lg md:rounded-tr-none ${showOtherItem === 0 ? "py-6" : "py-3"}`}
+          >
+            <div className="space-y-2 md:space-y-4">
               {confirmationCart.map((item, i) => {
                 if (showOtherItem >= i) {
                   return <ProductItem key={i} productItem={item} />;
@@ -86,7 +90,7 @@ function Confirmation({
             )}
           </div>
           <div
-            className={`space-y-2 ${showOtherItem === 0 ? "md:justify-center" : "md:justify-end md:pb-12.5 md:pl-10"} rounded-b-lg bg-black p-6 md:flex md:flex-col md:rounded-r-lg md:rounded-bl-none`}
+            className={`space-y-2 ${showOtherItem === 0 ? "py-6 md:justify-center" : "py-3 md:justify-end md:pb-12.5 md:pl-10"} rounded-b-lg bg-black p-6 md:flex md:flex-col md:rounded-r-lg md:rounded-bl-none`}
           >
             <p className="text-[15px] leading-[25px] font-medium text-white opacity-50">
               GRAND TOTAL
