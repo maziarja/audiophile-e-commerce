@@ -9,31 +9,35 @@ type Props = {
 
 function ShippingInfo({ form }: Props) {
   return (
-    <div>
+    <div className="md:mb-[61px]">
       <p className="mb-4 text-[13px] leading-[25px] font-bold tracking-[0.93] text-[#d87d4a] uppercase">
         shipping info
       </p>
-      <div className="space-y-6">
-        <Controller
-          control={form.control}
-          name="address"
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel className="capitalize" htmlFor={field.name}>
-                Your Address
-              </FieldLabel>
-              <Input
-                {...field}
-                id={field.name}
-                aria-invalid={fieldState.invalid}
-                placeholder="1137 Williams Avenue"
-                autoComplete="off"
-              />
+      <div className="space-y-6 md:grid md:grid-cols-2 md:gap-x-4">
+        <div className="md:col-span-2">
+          <Controller
+            control={form.control}
+            name="address"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel className="capitalize" htmlFor={field.name}>
+                  Your Address
+                </FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder="1137 Williams Avenue"
+                  autoComplete="off"
+                />
 
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+        </div>
         <Controller
           control={form.control}
           name="zipcode"

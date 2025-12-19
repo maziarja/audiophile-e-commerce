@@ -21,7 +21,7 @@ function ProductItem({ productItem }: { productItem: ProductCartItem }) {
           >
             {`$ ${productItem.price.toLocaleString()}`}
           </p>
-          {productItem.discount && (
+          {productItem.discount ? (
             <p className="bold text-[14px] leading-[25px] text-black opacity-50">
               {` $ ${(
                 productItem.price *
@@ -31,7 +31,7 @@ function ProductItem({ productItem }: { productItem: ProductCartItem }) {
                 minimumFractionDigits: 2,
               })}`}
             </p>
-          )}
+          ) : null}
         </div>
       </div>
       <p className="mt-3 text-[15px] leading-[25px] font-bold text-black opacity-50">

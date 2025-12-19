@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ProductCartItem } from "../shoppingCart/ShoppingCartContainer";
 import IconOrderConfirmation from "../ui/icon-order-confirmation";
 import ProductItem from "./ProductItem";
@@ -27,6 +27,8 @@ function Confirmation({
   showConfirmation,
   confirmationCart,
 }: Props) {
+  const [showOtherItem, setShowOtherItem] = useState(0);
+
   const total = confirmationCart.reduce(
     (acc, cur) => acc + cur.price * (1 - (cur.discount || 0)) * cur.quantity,
     0,
@@ -36,7 +38,7 @@ function Confirmation({
   return (
     <Dialog onOpenChange={setShowConfirmation} open={showConfirmation}>
       <DialogContent>
-        <DialogHeader className="gap-4.5">
+        <DialogHeader className="gap-4.5 md:gap-6">
           <div className="mb-1.5">
             <IconOrderConfirmation />
           </div>
@@ -51,24 +53,41 @@ function Confirmation({
             </div>
           </DialogTitle>
           <DialogDescription asChild>
-            <p className="text-left text-[15px]! leading-[25px]! font-medium! text-black! opacity-50!">
+            <p className="text-left text-[15px]! leading-[25px]! font-medium! text-black! opacity-50! md:mb-2">
               You will receive an email confirmation shortly.
             </p>
           </DialogDescription>
         </DialogHeader>
-        <div>
-          <div className="space-y-3 rounded-t-lg bg-[#f1f1f1] p-6">
-            <ProductItem productItem={confirmationCart[0]} />
+        <div className="md:mb-6 md:grid md:grid-cols-[1fr_198px]">
+          <div className="space-y-3 rounded-t-lg bg-[#f1f1f1] p-6 md:rounded-l-lg md:rounded-tr-none">
+            <div className="space-y-4">
+              {confirmationCart.map((item, i) => {
+                if (showOtherItem >= i) {
+                  return <ProductItem key={i} productItem={item} />;
+                }
+              })}
+            </div>
             {confirmationCart.length > 1 && (
               <>
                 <Separator />
-                <p className="text-center text-[12px] font-bold tracking-[-.21px] text-black opacity-50">
-                  and {confirmationCart.length - 1} other items(s)
-                </p>
+                <button
+                  onClick={() =>
+                    setShowOtherItem((prevState) =>
+                      prevState === 0 ? Infinity : 0,
+                    )
+                  }
+                  className="w-full text-center text-[12px] font-bold tracking-[-.21px] text-black opacity-50"
+                >
+                  {showOtherItem === 0
+                    ? `and ${confirmationCart.length - 1} other item(s)`
+                    : `View less`}
+                </button>
               </>
             )}
           </div>
-          <div className="space-y-2 rounded-b-lg bg-black p-6">
+          <div
+            className={`space-y-2 ${showOtherItem === 0 ? "md:justify-center" : "md:justify-end md:pb-12.5 md:pl-10"} rounded-b-lg bg-black p-6 md:flex md:flex-col md:rounded-r-lg md:rounded-bl-none`}
+          >
             <p className="text-[15px] leading-[25px] font-medium text-white opacity-50">
               GRAND TOTAL
             </p>

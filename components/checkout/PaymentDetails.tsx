@@ -3,6 +3,7 @@ import { Field, FieldError, FieldLabel } from "../ui/field";
 import { CheckoutType } from "@/lib/schemas/checkoutType";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Input } from "../ui/input";
+import IconCashOnDelivery from "../ui/icon-cash-on-delivery";
 
 type Props = {
   form: UseFormReturn<CheckoutType>;
@@ -26,7 +27,7 @@ function PaymentDetails({ form }: Props) {
           name="paymentMethod"
           control={form.control}
           render={({ field, fieldState }) => (
-            <Field>
+            <Field className="md:grid md:grid-cols-2">
               <p className="mb-.5 text-sm leading-snug font-bold text-black capitalize">
                 Payment Method
               </p>
@@ -59,7 +60,7 @@ function PaymentDetails({ form }: Props) {
           )}
         />
         {paymentValue === "e-money" && (
-          <>
+          <div className="space-y-6 md:grid md:grid-cols-2 md:space-y-0 md:gap-x-4">
             <Controller
               control={form.control}
               name="eMoneyNumber"
@@ -116,7 +117,18 @@ function PaymentDetails({ form }: Props) {
                 </Field>
               )}
             />
-          </>
+          </div>
+        )}
+        {paymentValue === "cash" && (
+          <div className="flex items-center gap-8">
+            <IconCashOnDelivery />
+            <p className="flex-1 text-[15px] leading-[25px] font-medium text-pretty text-black opacity-50">
+              The &apos;Cash on Delivery&apos; option enables you to pay in cash
+              when our delivery courier arrives at your residence. Just make
+              sure your address is correct so that your order will not be
+              cancelled.
+            </p>
+          </div>
         )}
       </div>
     </div>
