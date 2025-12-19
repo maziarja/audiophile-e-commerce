@@ -13,7 +13,7 @@ async function Page() {
   const emailAddress = session?.user?.email;
 
   return (
-    <section className="bg-[#fafafa] px-6 pb-24.25">
+    <section className="max-w-[1110px] bg-[#fafafa] px-6 pb-24.25 md:px-10 lg:mx-auto lg:min-[1150px]:px-0">
       <GoBack />
       <CheckoutContainer
         loggedInUser={loggedInUser}

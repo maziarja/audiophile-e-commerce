@@ -10,11 +10,11 @@ type Props = {
 
 function BillingDetails({ form, emailAddress }: Props) {
   return (
-    <div>
+    <div className="md:mb-[53px]">
       <p className="mb-4 text-[13px] leading-[25px] font-bold tracking-[0.93] text-[#d87d4a] uppercase">
         billing details
       </p>
-      <div className="space-y-6">
+      <div className="space-y-6 md:grid md:grid-cols-2 md:gap-x-4">
         <Controller
           control={form.control}
           name="fullName"
