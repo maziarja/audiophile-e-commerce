@@ -26,7 +26,7 @@ export async function checkout(
         throw new Error("Wrong email address");
       }
       const user = await User.findOne({ emailAddress: session.user.email });
-      if (user) {
+      if (user && user.cart) {
         user.fullName = validData.data.fullName;
         user.phoneNumber = validData.data.phoneNumber;
         user.address = validData.data.address;
@@ -34,6 +34,7 @@ export async function checkout(
         user.city = validData.data.city;
         user.country = validData.data.country;
         user.paymentMethod = validData.data.paymentMethod;
+        user.purchaseHistory?.push({ items: user.cart });
       }
       await user?.save();
       return { success: true };

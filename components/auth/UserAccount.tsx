@@ -8,6 +8,7 @@ import {
 import Authentication from "./Authentication";
 import { NavigationMenuList } from "@radix-ui/react-navigation-menu";
 import LogoutUser from "./LogoutUser";
+import PurchaseHistoryLink from "../user/PurchaseHistoryLink";
 
 function Profile({
   trigger,
@@ -23,6 +24,7 @@ function Profile({
           <NavigationMenuTrigger>{trigger}</NavigationMenuTrigger>
           <NavigationMenuContent>
             {loggedInUser ? <LogoutUser /> : <Authentication />}
+            {loggedInUser ? <PurchaseHistoryLink /> : null}
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuIndicator />

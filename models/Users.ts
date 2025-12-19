@@ -10,6 +10,13 @@ type UserType = {
   address?: string;
   zipcode?: string;
   city?: string;
+  purchaseHistory?: {
+    items: {
+      productId: mongoose.Types.ObjectId;
+      quantity: number;
+      discount: number;
+    }[];
+  }[];
   country?: string;
   paymentMethod: "e-money" | "cash" | null;
   cart?: {
@@ -77,6 +84,33 @@ const userSchema = new Schema<UserType & Document>({
   paymentMethod: {
     type: String,
     // required: [true, "User must have payment method"],
+  },
+  purchaseHistory: {
+    _id: false,
+    type: [
+      {
+        items: [
+          {
+            productId: {
+              type: Schema.Types.ObjectId,
+              ref: Product,
+            },
+            quantity: {
+              type: Number,
+              min: [1, "Cart quantity cannot be negative or zero"],
+            },
+            discount: {
+              type: Number,
+            },
+          },
+        ],
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    default: [],
   },
 });
 
