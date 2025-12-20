@@ -29,7 +29,6 @@ export async function getPurchaseHistory() {
     const purchaseHistoryDoc = convertToObject(
       purchaseHistory?.purchaseHistory,
     );
-
     const validPurchaseHistory =
       ProductHistorySchema.safeParse(purchaseHistoryDoc);
 

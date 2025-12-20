@@ -8,6 +8,11 @@ async function Page() {
   if (!session) redirect("/");
 
   const purchaseHistory = await getPurchaseHistory();
+
+  purchaseHistory?.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
   if (!purchaseHistory) return null;
   return <PurchaseHistoryContainer purchaseHistory={purchaseHistory} />;
 }
