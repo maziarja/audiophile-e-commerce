@@ -4,9 +4,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function ProductDetailsSkeleton() {
   return (
-    <div className="space-y-22 md:space-y-30 lg:space-y-40">
+    <div className="space-y-22 p-6 md:space-y-30 lg:space-y-40">
       {/* Product Image + Info */}
-      <div className="p-6 md:grid md:grid-cols-2 md:items-center md:gap-17.25 lg:gap-31.25">
+      <div className="md:grid md:grid-cols-2 md:items-center md:gap-17.25 lg:gap-31.25">
         {/* Image Skeleton */}
         <Skeleton className="h-[352px] w-full rounded-[10px] bg-gray-300 lg:h-[560px]" />
 
