@@ -19,7 +19,7 @@ function PurchaseHistoryContainer({
         <div key={index} className="space-y-4 rounded-lg bg-[#f1f1f1] p-6">
           <div className="flex items-center justify-between">
             <p className="text-[15px] font-bold tracking-[1px] uppercase">
-              Order #{index + 1}
+              Order #{order._id.slice(-10)}
             </p>
             <p className="text-[14px] text-black opacity-50">
               {new Date(order.date).toLocaleDateString("en-US", {

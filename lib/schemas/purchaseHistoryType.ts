@@ -20,6 +20,7 @@ export const ProductHistorySchema = z.array(
       }),
     ),
     date: z.string(),
+    _id: z.string(),
   }),
 );
 

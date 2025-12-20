@@ -86,7 +86,6 @@ const userSchema = new Schema<UserType & Document>({
     // required: [true, "User must have payment method"],
   },
   purchaseHistory: {
-    _id: false,
     type: [
       {
         items: [

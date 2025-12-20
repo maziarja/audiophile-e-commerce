@@ -25,7 +25,6 @@ const guestSchema = new Schema<GuestType & Document>({
   },
   emailAddress: {
     type: String,
-    unique: true,
     required: [true, "Please enter your email address"],
   },
 

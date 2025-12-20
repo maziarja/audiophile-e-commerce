@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "../ui/button";
 import { addToCart } from "@/lib/helpers/addToCart";
 import { useCart } from "@/app/_contexts/CartContext";
@@ -8,6 +8,7 @@ import { isLoggedInUser } from "@/app/_actions/users/isLoggedInUser";
 import { addToDBCart } from "@/app/_actions/shoppingCart/addToDBCart";
 import { REGISTRATION_DISCOUNT } from "@/lib/const";
 import { toast } from "sonner";
+import Spinner from "../ui/spinner";
 
 type AddToCardProps = {
   productId: string;
@@ -16,28 +17,31 @@ type AddToCardProps = {
 function AddToCard({ productId }: AddToCardProps) {
   const [quantity, setQuantity] = useState(1);
   const { setCart, refreshDBCart } = useCart();
+  const [isPending, startTransition] = useTransition();
 
-  async function handleClickCart() {
-    const loggedInUser = await isLoggedInUser();
-    if (!loggedInUser) {
-      addToCart(productId, quantity);
-      const cartStr = window.localStorage.getItem("cart");
-      const cart = cartStr ? JSON.parse(cartStr) : [];
-      setCart(cart);
-      toast.success("Item added to your cart");
-      setQuantity(1);
-    } else {
-      const result = await addToDBCart({
-        quantity,
-        productId,
-        discount: REGISTRATION_DISCOUNT,
-      });
-      refreshDBCart();
-      if (result?.success) {
+  function handleClickCart() {
+    startTransition(async () => {
+      const loggedInUser = await isLoggedInUser();
+      if (!loggedInUser) {
+        addToCart(productId, quantity);
+        const cartStr = window.localStorage.getItem("cart");
+        const cart = cartStr ? JSON.parse(cartStr) : [];
+        setCart(cart);
         toast.success("Item added to your cart");
         setQuantity(1);
+      } else {
+        const result = await addToDBCart({
+          quantity,
+          productId,
+          discount: REGISTRATION_DISCOUNT,
+        });
+        refreshDBCart();
+        if (result?.success) {
+          toast.success("Item added to your cart");
+          setQuantity(1);
+        }
       }
-    }
+    });
   }
 
   return (
@@ -61,7 +65,7 @@ function AddToCard({ productId }: AddToCardProps) {
       </div>
 
       <Button onClick={handleClickCart} size={"lg"} className="font-bold">
-        ADD TO CART
+        {isPending ? <Spinner /> : "ADD TO CART"}
       </Button>
     </div>
   );
